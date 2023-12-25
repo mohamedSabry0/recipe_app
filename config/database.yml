@@ -20,7 +20,7 @@ test:
 
 production:
   <<: *default
-  database: recipe_app_prod
+  database: recipe_app_stage
   username: postgres
   password: password
   host: localhost
