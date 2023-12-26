@@ -4,7 +4,7 @@
     <h3>Choose an inventory to use</h3>
     <%= form_with url: choose_inventory_recipe_path, method: :post do |f| %>
       <div class="mb-3">
-        <%= f.select :inventory_id, options_from_collection_for_select(current_user.inventories, :id, :name), class: 'form-control' %>
+        <%= f.select :inventory_id, options_from_collection_for_select(current_user.inventories, :id, :name), class: 'form-select' %>
       </div>
       <div>
         <%= f.hidden_field :recipe_id, value: recipe.id %>
