@@ -1,18 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Shopping list generator', type: :feature do
-  # Shopping list generator:
-  # prepare : create a recipe with 3 ingredients, create an inventory with 2 of the 3 ingredients, one of them with less quantity than the recipe requires
-  # as a user I want to be able to generate a shopping list for a recipe
-  # as a user I want to be able to see the missing ingredients and their quantities
-  # as a user I want to be able to see the total cost of the missing ingredients
-  # the shopping list should not include ingredients that are already in the inventory
-  # the shopping list should include ingredients that are in the inventory but in a smaller quantity than the recipe requires
-  # the shopping list should not include ingredients that are in the inventory but in a larger quantity than the recipe requires
-  # the shopping list should not include ingredients that are in the inventory in the exact quantity that the recipe requires
-  # the shopping list should contain the correct quantities for each ingredient
-  # the shopping list should contain total cost for each ingredient
-
   let(:user) { FactoryBot.create(:user) }
   let(:recipe) { FactoryBot.create(:recipe, user:) }
   let(:foods) { FactoryBot.create_list(:food, 4) }
@@ -49,11 +37,19 @@ RSpec.describe 'Shopping list generator', type: :feature do
     inventory_food2
     inventory_food3
 
+    login_user(user)
+  end
+
+  def login_user(user)
     visit '/users/sign_in'
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: user.password
     click_button 'Log in'
-    sleep(1)
+    wait_for_page_load
+  end
+
+  def wait_for_page_load
+    expect(page).to have_content('Signed in successfully.')
   end
 
   describe 'Shopping list generator' do
