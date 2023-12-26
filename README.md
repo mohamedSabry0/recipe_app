@@ -10,7 +10,8 @@
 
 ## 📗 Table of Contents
 
-- [📖 Recipe-App ](#-recipe-app)
+- [📖 Recipe On Rails ](#-recipe-on-rails-)
+  - [📺 \[Live Demo\] ](#-live-demo-)
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)
     - [Key Features ](#key-features-)
@@ -30,7 +31,12 @@
 
 # 📖 Recipe On Rails <a name="about-project"></a>
 
-**Recipe App** A recipe app used to manage information on food, recipe and shopping list.
+**Recipe App** is a web application that allows users to create, and delete recipes, and inventories. It also allows users to add ingredients to their inventories, and add ingredients to their recipes. Users can also view other users' public recipes, and create shopping lists for a recipe based on the ingredients available in their inventory.
+
+## 📺 [Live Demo] <a name="live-demo"></a>
+
+- [Testing Version](https://recipes-directory-test.onrender.com)
+- [Staging Version](https://recipes-directory.onrender.com)
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -73,7 +79,7 @@ In order to run this project you need:
 Clone this repository to your desired folder:
 
 ```bash
-  git clone git@github.com:sagieramos/recipe_app.git
+  git clone git@github.com:mohamedSabry0/recipe_app.git
 ```
 
 ### Install
@@ -81,36 +87,42 @@ Clone this repository to your desired folder:
 Install this project with:
 
 ```bash
-  cd recipe-app
+  cd recipe_app
   bundle install
 ```
 
 it will install the required gemfile for running the project
+
+run the following commands to create and migrate:
+
+```bash
+  rails db:create
+  rails db:migrate
+```
 
 ### Usage
 
 to use this project:
 
 ```sh
-   ruby
    bin/rails server
 ```
+
 Or
 
 ```sh
    rails server
 ```
 
-it will run the the server on ```localhost:3000```
+it will run the the server on `localhost:3000`
 
 to run tests:
 
 ```sh
-   rspec 
+   rspec
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## 👥 Authors <a name="author"></a>
 
@@ -151,6 +163,7 @@ to run tests:
 Contributions, issues, and feature requests are welcome!
 
 Feel free to check the [issues page](https://github.com/sagieramos/recipe_app/issues).
+You are welcome to fork the repository and modify the code. We encourage pull requests.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
