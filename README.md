@@ -153,6 +153,10 @@ to run tests:
 - **Add Events**
 - **Add Calories**
 - **Add Relevant Nutrition Facts**
+- **Enable different login options**
+- **Add a search bar**
+- **Add a filter option**
+- **Add a rating system**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
