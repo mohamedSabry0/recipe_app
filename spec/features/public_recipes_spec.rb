@@ -4,7 +4,7 @@ RSpec.describe 'Public recipes', type: :feature do
   describe 'Public recipe list' do
     let(:user) { FactoryBot.create(:user) }
     let(:user2) { FactoryBot.create(:user) }
-    let(:recipes) { FactoryBot.create_list(:recipe, 3, user: user, public: true) }
+    let(:recipes) { FactoryBot.create_list(:recipe, 3, user:, public: true) }
     let(:recipes2) { FactoryBot.create_list(:recipe, 3, user: user2, public: false) }
     let(:recipes3) { FactoryBot.create_list(:recipe, 3, user: user2, public: true) }
 
