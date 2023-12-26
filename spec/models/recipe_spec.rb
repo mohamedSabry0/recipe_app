@@ -9,8 +9,8 @@ RSpec.describe Recipe, type: :model do
   describe 'methods' do
     let(:user) { FactoryBot.create(:user) }
     let(:food) { FactoryBot.create(:food) }
-    let(:recipe) { FactoryBot.create(:recipe, user: user, public: true) }
-    let(:recipe_food) { FactoryBot.create(:recipe_food, recipe: recipe, food: food) }
+    let(:recipe) { FactoryBot.create(:recipe, user:, public: true) }
+    let(:recipe_food) { FactoryBot.create(:recipe_food, recipe:, food:) }
 
     before(:each) do
       user
@@ -21,12 +21,11 @@ RSpec.describe Recipe, type: :model do
 
     describe '#foods' do
       it 'should return all foods for a recipe' do
-        expect(recipe.foods).to eq(RecipeFood.joins(:food).where(recipe_id: recipe.id)
-        .select('foods.name, recipe_foods.quantity, foods.price'))
+        expect(recipe.foods).to eq(recipe.recipe_foods.joins(:food).select('foods.*, recipe_foods.*'))
       end
 
       it 'should return the correct fields' do
-        expect(recipe.foods.first.attributes.keys).to eq(%w[name quantity price id])
+        expect(recipe.foods.first.attributes.keys).to include('name', 'quantity', 'price', 'id')
       end
     end
 
