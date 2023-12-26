@@ -9,7 +9,7 @@ RSpec.describe 'Inventories index', type: :feature do
 
   describe 'Inventories list' do
     let(:user) { FactoryBot.create(:user) }
-    let(:inventory) { FactoryBot.create(:inventory, user: user) }
+    let(:inventory) { FactoryBot.create(:inventory, user:) }
 
     before(:each) do
       user

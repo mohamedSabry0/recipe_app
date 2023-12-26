@@ -8,7 +8,7 @@ RSpec.describe 'Recipe index', type: :feature do
 
   describe 'Recipes list' do
     let(:user) { FactoryBot.create(:user) }
-    let(:recipe) { FactoryBot.create(:recipe, user: user) }
+    let(:recipe) { FactoryBot.create(:recipe, user:) }
 
     before(:each) do
       user
