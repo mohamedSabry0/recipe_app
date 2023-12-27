@@ -15,9 +15,9 @@ RSpec.describe 'Recipe Show Page', type: :feature do
   let(:recipe_food) { FactoryBot.create(:recipe_food, recipe:, food:) }
   let(:recipe2) { FactoryBot.create(:recipe, user:) }
   let(:foods) { FactoryBot.create_list(:food, 3) }
-  3.times do |index|
-    let(:"recipe_food#{index}") { FactoryBot.create(:recipe_food, recipe: recipe2, food: foods[index]) }
-  end
+  let(:recipe_food0) { FactoryBot.create(:recipe_food, recipe:, food: foods[0]) }
+  let(:recipe_food1) { FactoryBot.create(:recipe_food, recipe:, food: foods[1]) }
+  let(:recipe_food2) { FactoryBot.create(:recipe_food, recipe:, food: foods[2]) }
 
   before(:each) do
     user
@@ -26,14 +26,10 @@ RSpec.describe 'Recipe Show Page', type: :feature do
     recipe_food
     recipe2
     foods
-    3.times do |index|
-      :"recipe_food#{index}"
-    end
-    visit '/users/sign_in'
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: user.password
-    click_button 'Log in'
-    sleep(1)
+    recipe_food0
+    recipe_food1
+    recipe_food2
+    login_user(user)
   end
   describe 'Recipe Show Page: single ingrediant:' do
     before(:each) do

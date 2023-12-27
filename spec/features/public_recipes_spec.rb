@@ -18,7 +18,7 @@ RSpec.describe 'Public recipes', type: :feature do
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: user.password
       click_button 'Log in'
-      sleep(1)
+      wait_for_page_load
       visit '/public_recipes'
     end
 
@@ -41,7 +41,7 @@ RSpec.describe 'Public recipes', type: :feature do
 
     it 'should allow to delete it' do
       page.all(:button, 'Remove')[0].click
-      sleep(1)
+      wait_for_page_load
       page.driver.browser.switch_to.alert.accept if page.driver.browser.switch_to.alert.text == 'Are you sure?'
       expect(page).to have_content('Recipe was successfully deleted.')
     end
