@@ -25,14 +25,14 @@ RSpec.describe 'Inventories index', type: :feature do
     end
 
     it 'should lead to inventory details' do
-      sleep(1)
+      wait_for_page_load
       click_link inventory.name
       expect(page).to have_content(inventory.name)
     end
 
     it 'should allow to delete it' do
       click_link 'Delete'
-      sleep(1)
+      wait_for_page_load
       page.driver.browser.switch_to.alert.accept if page.driver.browser.switch_to.alert.text == 'Are you sure?'
       expect(page).to have_content('Inventory was successfully deleted.')
     end

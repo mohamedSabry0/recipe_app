@@ -1,42 +1,38 @@
-# app/services/shopping_list_generator.rb
-
 class ShoppingListGenerator
   def self.generate_shopping_list(inventory_id, recipe_id)
-    RecipeFood.left_outer_joins(food: :inventory_foods).where(recipe_id:)
+    RecipeFood.left_outer_joins(food: :inventory_foods)
+      .where(recipe_id:)
       .where.not(
-        food_id: InventoryFood.select(:food_id)
-                              .where(inventory_id:)
+        food_id: unavailable_foods(inventory_id)
       )
       .or(
         RecipeFood.where.not(
-          id: RecipeFood.joins(food: :inventory_foods)
-                        .where('inventory_id = ? AND foods.id = recipe_foods.food_id', inventory_id)
-                        .where('inventory_foods.quantity >= recipe_foods.quantity')
-                        .pluck(:id)
+          id: insufficient_quantity_foods(inventory_id)
         )
       )
-      .select('CASE WHEN inventory_foods.quantity < recipe_foods.quantity
-                          THEN recipe_foods.quantity - inventory_foods.quantity
-                                   ELSE recipe_foods.quantity END AS quantity',
-              'foods.name',
-              'foods.id AS food_id',
-              'foods.price',
-              'foods.measurement_unit')
+      .select(select_columns)
+  end
 
-    # RecipeFood.left_outer_joins(food: :inventory_foods)
-    #   .where('inventory_foods.inventory_id != ?
-    #     OR inventory_foods.quantity < recipe_foods.quantity', inventory_id)
-    #   .where(recipe_id: recipe_id)
-    # .select(
-    #   'CASE WHEN inventory_foods.quantity < recipe_foods.quantity
-    #   THEN recipe_foods.quantity - inventory_foods.quantity
-    #   ELSE recipe_foods.quantity END AS quantity',
-    #   'foods.name',
-    #   'foods.id AS food_id',
-    #   'foods.price',
-    #   'foods.measurement_unit'
-    # )
-    #   .order('foods.name')
-    #   .includes(food: :inventory_foods)
+  def self.unavailable_foods(inventory_id)
+    InventoryFood.select(:food_id).where(inventory_id:)
+  end
+
+  def self.insufficient_quantity_foods(inventory_id)
+    RecipeFood.joins(food: :inventory_foods)
+      .where('inventory_foods.inventory_id = ? AND foods.id = recipe_foods.food_id', inventory_id)
+      .where('inventory_foods.quantity >= recipe_foods.quantity')
+      .pluck(:id)
+  end
+
+  def self.select_columns
+    <<~SQL
+      CASE WHEN inventory_foods.quantity < recipe_foods.quantity
+           THEN recipe_foods.quantity - inventory_foods.quantity
+           ELSE recipe_foods.quantity END AS quantity,
+      foods.name,
+      foods.id AS food_id,
+      foods.price,
+      foods.measurement_unit
+    SQL
   end
 end
